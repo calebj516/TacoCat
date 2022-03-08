@@ -1,7 +1,8 @@
 // Get Values
 function getValues() {
-  // make sure the alert is invisble
-  document.getElementById('alert').classList.add('invisible');
+  // make sure the modal is invisble
+  let myModal = new bootstrap.Modal(document.getElementById('resultModal'));
+  myModal.hide();
   // Get string from user
   let str = document.getElementById('userInput').value;
   // Pass string to isPalindrome
@@ -34,10 +35,11 @@ function isPalindrome(str) {
 
 // Display Results
 function displayResults(returnObj) {
+  let myModal = new bootstrap.Modal(document.getElementById('resultModal'));
   // display return message in alert header
-  document.getElementById('alertHeader').innerHTML = returnObj.msg;
+  document.getElementById('resultModalLabel').innerHTML = returnObj.msg;
   // show the reversed user input in the message
-  document.getElementById('msg').innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+  document.getElementById('modalBody').innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
   // unhide the alert
-  document.getElementById('alert').classList.remove('invisible');
+  myModal.toggle();
 }
