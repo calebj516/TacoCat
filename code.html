@@ -37,7 +37,7 @@
     <!-- Nav Section -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand logoFont" href="index.html"> APP NAME</a>
+        <a class="navbar-brand logoFont" href="index.html"> Taco Cat</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -86,25 +86,73 @@
     <main class="flex-shrink-0">
       <div class="container py-5 px-5 mt-5">
         <h2 class="border-1 border-bottom border-dark">
-          The Code for APP NAME.
+          The Code for Taco Cat.
         </h2>
         <div class="row row-cols-1 row-cols-lg-2">
           <div class="col-lg-8">
             <pre class="line-numbers">
                 <code class="language-javascript">
-                  // call Hello World
-                    function HelloWorld() {
-                      alert("Hello World!");
+                  // Get Values
+                  function getValues() {
+                    // make sure the modal is invisble
+                    let myModal = new bootstrap.Modal(document.getElementById('resultModal'));
+                    myModal.hide();
+                    // Get string from user
+                    let str = document.getElementById('userInput').value;
+                    // Pass string to isPalindrome
+                    let returnObj = isPalindrome(str);
+                    // Pass result of isPalindrome to displayResults
+                    displayResults(returnObj);
+                  }
+
+                  // Determine Palindrome Status
+                  function isPalindrome(str) {
+                    // lowercase and remove special characters
+                    str = str.toLowerCase();
+                    // remove special characters
+                    let regex = /[^a-z0-9]/gi;
+                    str = str.replace(regex, '');
+                    // create a reversed copy of str and an object to hold the result message and reversed string
+                    let reversedStr = '';
+                    let returnObj = {};
+                    // loop through str in reverse, adding each element to reversedStr
+                    for(let i = str.length - 1; i >= 0; i--){
+                      reversedStr += str[i];
                     }
+                    // return result message
+                    str === reversedStr ? returnObj.msg = "Well done! You entered a Palindrome!" : returnObj.msg = "Sorry! You did not enter a Palindrome.";
+                    // add a property to returnObj called reversed which holds the reversed string
+                    returnObj.reversed = reversedStr;
+                    // return the object holding result information
+                    return returnObj;
+                  }
+
+                  // Display Results
+                  function displayResults(returnObj) {
+                    let myModal = new bootstrap.Modal(document.getElementById('resultModal'));
+                    // display return message in modal header
+                    document.getElementById('resultModalLabel').innerHTML = returnObj.msg;
+                    // show the reversed user input in the message
+                    document.getElementById('modalBody').innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+                    // unhide the modal
+                    myModal.toggle();
+                  }
               </code>
             </pre>
           </div>
           <div class="col-lg-4">
-            <p>The Code is structured in one function.</p>
-            <h5>Hello World</h5>
+            <p>The Code is structured in three functions.</p>
+            <h5>Get Values</h5>
             <p>
-              Hello World is a function that displays an alert with a message of
-              "Hello World!"
+              getValues is a function that accepts user input, passes it to the isPalindrome function, and finally calls displayResults, passing in the results from isPalindrome. This function also ensures that the modal is hidden from view.
+            </p>
+            <h5>Is Palindrome</h5>
+            <p>
+              isPalindrome is a function that, in short, accepts user input and determines if it is in fact a palindrome (whitespace and special characters do not affect the final result). It starts off by converting the user input into lowercase. Next, by means of a regular expression, all characters that are not lowercase letters or numbers (in other words, special characters) are replaced with an empty string, which has the same effect as removing them. On lines 22 and 23, we have a variable to hold the reversed string and an empty object, which, as the name suggests, will hold information on our final result (reversedStr will be used for a property in this object). On lines 25 to 27, we have a for loop that will process the user input in reverse, adding each element to reversedStr, which will produce a reversed version of the user input. On line 29, a statement using ternary operators checks if this reversed string matches the original user input; if so, a property containing a message indicating success or failure is assigned to the result object. Line 31 sets yet another property, reversed, which shows the reversed version of the user input. Finally, on line 33, the result object is returned.
+            </p>
+            <h5>Display Results</h5>
+            <p>
+              displayResults is our final function. It accepts the result object from isPalindrome and uses its properties to change the modal header and body; the success or failure message is displayed in the header, and the reversed string is displayed in the body. Finally, on line 44, the modal is toggled on and will appear to the user.
             </p>
           </div>
         </div>

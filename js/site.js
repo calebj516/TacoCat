@@ -36,10 +36,10 @@ function isPalindrome(str) {
 // Display Results
 function displayResults(returnObj) {
   let myModal = new bootstrap.Modal(document.getElementById('resultModal'));
-  // display return message in alert header
+  // display return message in modal header
   document.getElementById('resultModalLabel').innerHTML = returnObj.msg;
   // show the reversed user input in the message
   document.getElementById('modalBody').innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
-  // unhide the alert
+  // unhide the modal
   myModal.toggle();
 }
